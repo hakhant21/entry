@@ -30,9 +30,9 @@ Route::post('/upload', function(Request $request){
 
     $attributes = json_decode($json);
 
-    CreateNewSale::dispatch($attributes);
+    // CreateSale::dispatch($attributes); // For Old FMS Mongodb data as json file
 
-    // CreateSale::dispatch($attributes);
+    CreateNewSale::dispatch($attributes); // For New FMS Mysql data as json file
 })->name('upload');
 
 Route::post('/fuelin', function(Request $request){

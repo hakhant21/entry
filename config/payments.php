@@ -11,7 +11,7 @@ return [
     ],
     [
         'id' => 3,
-        'name' => 'KPay',
+        'name' => 'KBZ Pay',
     ],
     [
         'id' => 4,
@@ -40,5 +40,13 @@ return [
     [
         'id' => 10,
         'name' => 'Office Use',
+    ],
+    [
+        'id' => 11,
+        'name' => 'Member Card',
+    ],
+    [
+        'id' => 12,
+        'name' => 'Other',
     ]
 ];

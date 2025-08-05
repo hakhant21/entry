@@ -13,20 +13,16 @@ trait HasConfig
 {
     public function getDispenser($value)
     {
-        $nozzles = collect(config('nozzles'));
+        $nozzle = DB::table('nozzles')->where('nozzle_no', $value)->first();
 
-        $nozzle = $nozzles->where('nozzle_no', $value)->first();
-
-        return $nozzle['dispenser_id'];
+        return $nozzle->dispenser_id;
     }
 
     public function getNozzle($value)
     {
-        $nozzles = collect(config('nozzles'));
+        $nozzle = DB::table('nozzles')->where('nozzle_no', $value)->first();
 
-        $nozzle = $nozzles->where('nozzle_no', $value)->first();
-
-        return $nozzle['id'];
+        return $nozzle->id;
     }
 
     public function getPayment($value)
@@ -40,20 +36,16 @@ trait HasConfig
 
     public function getTank($value)
     {
-        $tanks = collect(config('tanks'));
+        $fuelType = DB::table('fuel_types')->where('name', $value)->first();
 
-        $tank = $tanks->where('name', $value)->first();
-
-        return $tank['id'];
+        return $fuelType->tank_id;
     }
 
     public function getType($value)
     {
-        $types = collect(config('types'));
+        $fuelType = DB::table('fuel_types')->where('name', $value)->first();
 
-        $type = $types->where('name', $value)->first();
-
-        return $type['id'];
+        return $fuelType->id;
     }
 
     public function getVehicle($value)
@@ -62,7 +54,7 @@ trait HasConfig
 
         $vehicle = $vehicles->where('name', $value)->first();
 
-        if($vehicle == null) {
+        if ($vehicle == null) {
             return 1;
         }
 
@@ -85,7 +77,7 @@ trait HasConfig
 
         $cashier = $vocono['cashier'];
 
-        $stationNo = 'SSSK-001';
+        $stationNo = 'KS-001';
 
         $today = Carbon::parse($date)->format('Ymd');
 
@@ -114,15 +106,15 @@ trait HasConfig
             'totalizer_amount' => $attribute['totalizer_amount'],
             'device_totalizer_liter' => $attribute['devTotalizar_liter'],
             'device_totalizer_amount' => $attribute['devTotalizar_liter'] * $attribute['salePrice'],
-            'tank_balance' => $attribute['tankBalance'],
+            'tank_balance' => isset($attribute['tankBalance']) ? $attribute['tankBalance'] : null,
             'sale_liter' => $attribute['saleLiter'],
             'sale_price' => $attribute['salePrice'],
             'total_price' => $attribute['totalPrice'],
             'is_preset' => $attribute['preset'] != null ? 1 : 0,
             'preset_amount' => $attribute['preset'] != null ? $attribute['preset'] : null,
             'daily_report_date' => $attribute['dailyReportDate'],
-            'created_at' => Carbon::parse($attribute['createAt'])->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::parse($attribute['createAt'])->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::parse($attribute['createAt']['$date'])->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::parse($attribute['createAt']['$date'])->format('Y-m-d H:i:s'),
         ];
     }
 
